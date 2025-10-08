@@ -13,7 +13,6 @@ const mongoUrl = process.env.MONGO_URI || 'mongodb+srv://shibilikds133_db_user:f
 const dbName = 'alAnsarAdmissions';
 const client = new MongoClient(mongoUrl);
 
-// ++ പ്രധാന മാറ്റം ഇവിടെ ++
 // ഡാറ്റാബേസുമായി കണക്ട് ചെയ്ത ശേഷം മാത്രം സെർവർ പ്രവർത്തിപ്പിക്കുന്നു
 async function startServer() {
     try {
@@ -73,4 +72,7 @@ async function startServer() {
         process.exit(1); // പിശക് വന്നാൽ സെർവർ നിർത്തുന്നു
     }
 }
+
+// സെർവർ പ്രവർത്തിപ്പിക്കാനായി ഫംഗ്ഷൻ വിളിക്കുന്നു
+startServer();
 
