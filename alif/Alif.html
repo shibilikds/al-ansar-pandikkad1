@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="AL ANSAR PANDIKKAD - A charitable organization dedicated to orphan care, education, healthcare, and community welfare">
+    <title>AL ANSAR PANDIKKAD - Our Commitment to Society</title>
+    <style>
+        /* ============================================
+   CSS VARIABLES & RESET
+   ============================================ */
+        :root {
+            /* Color Palette */
+            --primary-green: #1a5f3a;
+            --secondary-green: #2d8659;
+            --light-green: #e8f5e9;
+            --text-dark: #333;
+            --text-medium: #555;
+            --text-light: #777;
+            --background-light: #f8f9fa;
+            --white: #ffffff;
+            --dark: #1a1a1a;
+
+            /* Font Families */
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            /* Spacing */
+            --section-padding: 80px;
+            --container-max-width: 1400px;
+
+            /* Transitions */
+            --transition-smooth: all 0.3s ease;
+            --transition-slow: all 0.8s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.8;
+            color: var(--text-dark);
+            background-color: var(--background-light);
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ============================================
+   NAVIGATION BAR (DESKTOP)
+   ============================================ */
+       /* ============================================
+   NAVIGATION BAR (Updated for smooth hide/show)
+   ============================================ */
+nav {
+  position: fixed; /* changed from sticky */
+  top: 0;
+  width: 100%;
+  background: var(--white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 0 20px;
+  transition: transform 0.3s ease-in-out; /* smooth slide on scroll */
+}
+
+/* Nav container layout */
+.nav-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+/* Logo styling */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-green);
+  letter-spacing: 1px;
+  transition: var(--transition-smooth);
+}
+
+.logo:hover {
+  color: var(--secondary-green);
+}
+
+/* Navigation links */
+.nav-links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-links a {
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--secondary-green);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--secondary-green);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Hamburger Menu (Hidden on Desktop) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background: var(--primary-green);
+  margin: 4px 0;
+  transition: var(--transition-smooth);
+}
+
+        /* ============================================
+   HEADER SECTION
+   ============================================ */
+        header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: var(--white);
+            padding: 120px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0 Q300,60 600,30 T1200,0 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.05)"/></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.4rem;
+            font-weight: 300;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================
+   MAIN CONTENT CONTAINER
+   ============================================ */
+        main {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: var(--section-padding) 20px;
+        }
+
+        /* ============================================
+   CONTENT SECTIONS
+   ============================================ */
+        .content-section {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            margin-bottom: 120px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-slow);
+        }
+
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-section .image-container {
+            flex: 1;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .content-section .image-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .content-section img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .content-section .image-container:hover img {
+            transform: scale(1.08);
+        }
+
+        .content-section .text-content {
+            flex: 1;
+        }
+
+        .content-section h2 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .content-section p {
+            font-size: 1.15rem;
+            color: var(--text-medium);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        /* Reverse Layout */
+        .content-section.reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* ============================================
+   ACTIVITIES LIST SECTION
+   ============================================ */
+        .activities-list {
+            background: var(--white);
+            padding: 80px 60px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin-top: 60px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-slow);
+        }
+
+        .activities-list.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .activities-list h2 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .activities-list ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .activities-list li {
+            padding: 20px 20px 20px 55px;
+            position: relative;
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            background: var(--background-light);
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .activities-list li:hover {
+            background: var(--light-green);
+            transform: translateX(8px);
+            box-shadow: 0 4px 15px rgba(45, 134, 89, 0.2);
+        }
+
+        .activities-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 22px;
+            color: var(--secondary-green);
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+
+        /* ============================================
+   FOOTER
+   ============================================ */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+
+        /* ============================================
+   BACK TO TOP BUTTON
+   ============================================ */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #backToTop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #backToTop:hover {
+            background: var(--secondary-green);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ============================================
+   LIGHTBOX MODAL
+   ============================================ */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: var(--white);
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            z-index: 2001;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.2) rotate(90deg);
+        }
+
+        /* ============================================
+   RESPONSIVE MEDIA QUERIES
+   ============================================ */
+        @media screen and (max-width: 768px) {
+
+            /* Mobile Navigation */
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 70px;
+                height: calc(100vh - 70px);
+                width: 70%;
+                max-width: 300px;
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                gap: 30px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transform: translateX(100%);
+                transition: transform 0.4s ease;
+            }
+
+            .nav-links.nav-active {
+                transform: translateX(0);
+            }
+
+            /* Hamburger Animation */
+            .hamburger.toggle div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.toggle div:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.toggle div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            /* Header */
+            header {
+                padding: 80px 20px 60px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1.1rem;
+            }
+
+            /* Content Sections */
+            main {
+                padding: 50px 20px;
+            }
+
+            .content-section {
+                flex-direction: column !important;
+                gap: 40px;
+                margin-bottom: 80px;
+            }
+
+            .content-section h2 {
+                font-size: 2rem;
+            }
+
+            .content-section img {
+                height: 300px;
+            }
+
+            /* Activities List */
+            .activities-list {
+                padding: 50px 25px;
+            }
+
+            .activities-list h2 {
+                font-size: 2rem;
+            }
+
+            .activities-list ul {
+                grid-template-columns: 1fr;
+            }
+
+            /* Back to Top Button */
+            #backToTop {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            /* Lightbox */
+            .lightbox-close {
+                top: 15px;
+                right: 15px;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            header h1 {
+                font-size: 1.6rem;
+                letter-spacing: 1px;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.7rem;
+            }
+
+            .content-section p {
+                font-size: 1rem;
+            }
+
+            .activities-list h2 {
+                font-size: 1.7rem;
+            }
+
+            .activities-list li {
+                font-size: 1rem;
+                padding: 15px 15px 15px 45px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================
+         NAVIGATION BAR
+         ============================================ -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">AL ANSAR</a>
+
+            <ul class="nav-links">
+                <li class="nav-brand">
+                    <a href="index.html" class="back-link">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li><a href="#orphan-care">Orphan Care</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#healthcare">Healthcare</a></li>
+                <li><a href="#activities">Activities</a></li>
+            </ul>
+
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <script>
+            // ===== Smooth Scrolling for Anchor Links =====
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#') && targetId.length > 1) {
+                        e.preventDefault();
+                        document.querySelector(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // ===== Hide Navbar on Scroll Down / Show on Scroll Up =====
+            let lastScrollTop = 0;
+            const nav = document.querySelector('nav');
+
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop) {
+                    // Scrolling Down — hide nav
+                    nav.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling Up — show nav
+                    nav.style.transform = 'translateY(0)';
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative scroll
+            });
+        </script>
+
+
+
+    </nav>
+
+
+    <!-- ============================================
+         HEADER SECTION
+         ============================================ -->
+    <header id="home">
+        <h1>AL ANSAR PANDIKKAD</h1>
+        <p>Our Commitment to Society</p>
+    </header>
+
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main>
+        <!-- Section 1: Orphan Care -->
+        <section id="orphan-care" class="content-section">
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&h=600&fit=crop"
+                    alt="Children at orphanage receiving care and support">
+            </div>
+            <div class="text-content">
+                <h2>Nurturing Young Hearts</h2>
+                <p>At AL ANSAR PANDIKKAD, we believe every child deserves love, care, and a promising future. Our orphan
+                    care program provides comprehensive support to children who have lost their families, offering them
+                    a safe haven filled with warmth and compassion.</p>
+                <p>We provide nutritious meals, quality education, healthcare services, and emotional support to help
+                    these young souls flourish. Our dedicated team works tirelessly to ensure that every child under our
+                    care grows up with dignity, hope, and the skills needed to build a successful future.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Educational Support -->
+        <section id="education" class="content-section reverse">
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop"
+                    alt="Students studying and learning in classroom">
+            </div>
+            <div class="text-content">
+                <h2>Empowering Through Education</h2>
+                <p>Education is the cornerstone of progress and empowerment. Our scholarship programs and educational
+                    aid initiatives have helped hundreds of deserving students from economically disadvantaged
+                    backgrounds pursue their academic dreams.</p>
+                <p>We provide financial assistance for tuition fees, books, uniforms, and other educational necessities.
+                    Beyond monetary support, we also offer mentorship programs, career guidance, and skill development
+                    workshops to ensure our students are well-prepared for the challenges of tomorrow.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Community Welfare -->
+        <section id="community" class="content-section">
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&h=600&fit=crop"
+                    alt="Community welfare and support activities">
+            </div>
+            <div class="text-content">
+                <h2>Supporting the Vulnerable</h2>
+                <p>Our community welfare programs extend a helping hand to those who need it most. We work with
+                    differently-abled individuals, providing them with rehabilitation services, assistive devices, and
+                    vocational training to help them lead independent and dignified lives.</p>
+                <p>We also support destitute families through food distribution drives, medical assistance programs, and
+                    livelihood initiatives. Our goal is to create a more inclusive society where everyone has access to
+                    basic necessities and opportunities for growth, regardless of their circumstances.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Healthcare Initiatives -->
+        <section id="healthcare" class="content-section reverse">
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop"
+                    alt="Healthcare services and medical camps">
+            </div>
+            <div class="text-content">
+                <h2>Health for All</h2>
+                <p>Access to quality healthcare is a fundamental right. Our medical camps and health initiatives bring
+                    essential healthcare services to underserved communities, conducting free health check-ups,
+                    distributing medicines, and providing health education.</p>
+                <p>We organize regular eye camps, dental check-ups, and specialized medical consultations. Our
+                    partnership with healthcare professionals ensures that even the most vulnerable members of society
+                    receive the medical attention they deserve, free of cost.</p>
+            </div>
+        </section>
+
+        <!-- Detailed Activities List -->
+        <section id="activities" class="activities-list">
+            <h2>Our Comprehensive Range of Activities</h2>
+            <ul>
+                <li>Operating and maintaining orphanages with modern facilities</li>
+                <li>Providing scholarships and educational materials to underprivileged students</li>
+                <li>Conducting free medical camps in rural and urban areas</li>
+        </section>
+    </main>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer>
+        <p>&copy; 2025 AL ANSAR PANDIKKAD. All rights reserved.</p>
+        <p>Making a difference, one life at a time.</p>
+    </footer>
+
+    <!-- ============================================
+         BACK TO TOP BUTTON
+         ============================================ -->
+    <button id="backToTop" aria-label="Back to top">↑</button>
+
+    <!-- ============================================
+         LIGHTBOX MODAL
+         ============================================ -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="closeLightbox" aria-label="Close lightbox">&times;</span>
+        <img id="lightboxImg" src="" alt="Enlarged view">
+    </div>
+
+    <script>
+        // ============================================
+        // Wait for DOM to load before executing scripts
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // ============================================
+            // RESPONSIVE NAVIGATION TOGGLE
+            // ============================================
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const navItems = document.querySelectorAll('.nav-links a');
+
+            // Toggle mobile menu when hamburger is clicked
+            hamburger.addEventListener('click', function () {
+                navLinks.classList.toggle('nav-active');
+                hamburger.classList.toggle('toggle');
+            });
+
+            // Close mobile menu when a navigation link is clicked
+            navItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    if (navLinks.classList.contains('nav-active')) {
+                        navLinks.classList.remove('nav-active');
+                        hamburger.classList.remove('toggle');
+                    }
+                });
+            });
+
+            // ============================================
+            // SCROLL-TRIGGERED ANIMATIONS
+            // ============================================
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all content sections and activities list
+            const elementsToObserve = document.querySelectorAll('.content-section, .activities-list');
+            elementsToObserve.forEach(element => {
+                observer.observe(element);
+            });
+
+            // ============================================
+            // BACK TO TOP BUTTON
+            // ============================================
+            const backToTopBtn = document.getElementById('backToTop');
+
+            // Show/hide button based on scroll position
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 400) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+
+            // Scroll to top when button is clicked
+            backToTopBtn.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // ============================================
+            // IMAGE LIGHTBOX FUNCTIONALITY
+            // ============================================
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const closeLightbox = document.getElementById('closeLightbox');
+            const clickableImages = document.querySelectorAll('.image-container img');
+
+            // Open lightbox when an image is clicked
+            clickableImages.forEach(img => {
+                img.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    lightboxImg.src = this.src;
+                    lightboxImg.alt = this.alt;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Close lightbox when close button is clicked
+            closeLightbox.addEventListener('click', function () {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close lightbox when clicking outside the image
+            lightbox.addEventListener('click', function (e) {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Close lightbox with Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Form -AL ANSAR ISLAMIC CENTRE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        /* A more professional and modern stylesheet */
+        :root {
+            --primary-color: #1D4C4F; /* Dark Teal */
+            --secondary-color: #27797F; /* Lighter Teal */
+            --background-color: #f8f9fa; /* Soft off-white */
+            --text-color: #495057; /* Dark Gray */
+            --container-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: var(--container-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.2em;
+        }
+
+        .header h2 {
+            color: var(--secondary-color);
+            font-weight: 400;
+            font-size: 1.2em;
+        }
+        
+        .principal {
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .details-section h3, .form-section h3, .contact-info h3 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+        
+        .details-section {
+             margin-bottom: 40px;
+        }
+
+        .details-section ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+        }
+
+        .details-section li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .details-section li::before {
+            content: '✓'; /* Custom checkmark */
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Professional Form Styles */
+        .form-section {
+            background-color: #fdfdfd;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-section label {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .form-section input,
+        .form-section textarea {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1em;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-section input:focus,
+        .form-section textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 5px rgba(39, 121, 127, 0.2);
+        }
+        
+        /* CSS For Radio Buttons */
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 25px; /* space between radio options */
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+        .radio-group label {
+            font-weight: 400; /* Lighter font for radio options */
+            color: var(--text-color);
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        .radio-group input[type="radio"] {
+            width: auto; /* override default width */
+            margin-right: -15px; /* Adjust spacing */
+            accent-color: var(--primary-color);
+        }
+
+        /* ++ NEW STYLES FOR BUTTONS ++ */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .submit-btn, .download-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+        }
+
+        .submit-btn {
+            background-color: var(--secondary-color);
+        }
+        .submit-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .download-btn {
+            background-color: var(--primary-color);
+        }
+        .download-btn:hover {
+             background-color: #10383a;
+             transform: translateY(-2px);
+        }
+
+
+        /* Contact & Footer */
+        .contact-info, .footer {
+            text-align: center;
+        }
+        
+        .contact-info {
+            margin-bottom: 40px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+
+        .contact-info a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .footer {
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        /* Media query for smaller screens */
+        @media (min-width: 600px) {
+            .button-group {
+                flex-direction: row;
+            }
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px; /* Reducing padding on mobile */
+                margin: 20px auto;
+            }
+            .header h1 {
+                font-size: 1.8em; /* Adjusting font size for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="form-container">
+        <div class="header">
+            <h1>AL ANSAR ISLAMIC CENTRE</h1>
+            <h2>ADMISSIONS STARTED</h2>
+        </div>
+
+        <p class="principal">
+            <strong>Principal:</strong> Muhammed Basheer Kamil Saqafi Karakkunnu
+        </p>
+
+        <div class="details-section">
+            <h3>Courses Offered</h3>
+            <ul>
+                <li><strong>Junior:</strong> For 8th Standard Students.</li>
+                <li><strong>Senior:</strong> For those expecting high marks in SSLC.</li>
+            </ul>
+
+            <h3>Features</h3>
+            <ul>
+                <li>Syllabus of Jamiathul Hind Al Islamiyya.</li>
+                <li>Excellent Academic Body.</li>
+                <li>Complete training from experienced teachers.</li>
+                <li>Nurturing creative talents.</li>
+                <li>Opportunity to pursue Degree and PG from top universities.</li>
+            </ul>
+        </div>
+
+        <div class="form-section">
+            <h3>Apply Now</h3>
+            <form action="/submit-form" method="POST" id="admission-form">
+                <label for="studentName">Student Name:</label>
+                <input type="text" id="studentName" name="studentName" placeholder="Enter full name" required>
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" placeholder="e.g., +91..." required pattern="[0-9+]{10,13}">
+
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" rows="4" placeholder="Enter your full address" required></textarea>
+
+                <label>Applying for:</label>
+                <div class="radio-group">
+                    <input type="radio" id="junior" name="course" value="Junior (8th Standard)" required>
+                    <label for="junior">Junior (8th Standard)</label>
+                    
+                    <input type="radio" id="senior" name="course" value="Senior (SSLC passed)">
+                    <label for="senior">Senior (For SSLC passed)</label>
+                </div>
+                
+                <!-- ++ UPDATED BUTTONS SECTION ++ -->
+                <div class="button-group">
+                    <button type="submit" class="submit-btn">SUBMIT APPLICATION</button>
+                    <button type="button" id="download-pdf-btn" class="download-btn">DOWNLOAD AS PDF</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <h3>For More Information</h3>
+            <p><strong>Email:</strong> <a href="mailto:shibilikds938@gmail.com">shibilikds938@gmail.com</a></p>
+            <p><strong>Phone:</strong></p>
+            <p>
+                <a href="tel:+919526315849">+91 95263 15849</a> | 
+                <a href="tel:+919048019566">+91 90480 19566</a> | 
+                <a href="tel:+918078565815">+91 80785 65815</a>
+            </p>
+        </div>
+
+        <div class="footer">
+            <p><strong>AL ANSAR ISLAMIC CENTRE PANDIKKAD</strong></p>
+            <p>Ansar Nagar, Pandikkad, Malappuram, Kerala, India.</p>
+        </div>
+    </div>
+
+    <!-- ++ NEW JAVASCRIPT FOR PDF GENERATION ++ -->
+    <script>
+        document.getElementById('download-pdf-btn').addEventListener('click', function () {
+            // Get the element to print
+            const element = document.getElementById('form-container');
+            
+            // Use html2canvas to render the element as a canvas
+            html2canvas(element, {
+                scale: 2, // Improve resolution
+                useCORS: true 
+            }).then(canvas => {
+                // Get image data from the canvas
+                const imgData = canvas.toDataURL('image/png');
+                
+                // Initialize jsPDF
+                const { jsPDF } = window.jspdf;
+                // 'p' for portrait, 'mm' for millimeters, 'a4' for page size
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Calculate dimensions
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const canvasWidth = canvas.width;
+                const canvasHeight = canvas.height;
+                const canvasAspectRatio = canvasWidth / canvasHeight;
+                const pdfAspectRatio = pdfWidth / pdfHeight;
+
+                let finalWidth, finalHeight;
+
+                // Adjust image to fit the PDF page
+                if (canvasAspectRatio > pdfAspectRatio) {
+                    finalWidth = pdfWidth;
+                    finalHeight = pdfWidth / canvasAspectRatio;
+                } else {
+                    finalHeight = pdfHeight;
+                    finalWidth = pdfHeight * canvasAspectRatio;
+                }
+                
+                // Add the image to the PDF
+                pdf.addImage(imgData, 'PNG', 0, 0, finalWidth, finalHeight);
+                
+                // Save the PDF
+                pdf.save('Al-Ansar-Admission.pdf');
+            });
+        });
+    </script>
+</body>
+</html>
+
