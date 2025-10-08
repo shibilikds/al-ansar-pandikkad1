@@ -6,7 +6,9 @@ const { MongoClient } = require('mongodb');
 
 // Express ആപ്ലിക്കേഷൻ ഉണ്ടാക്കുന്നു
 const app = express();
-const port = 3000;
+// ++ പ്രധാന മാറ്റം ഇവിടെ ++
+// Render നൽകുന്ന പോർട്ട് ഉപയോഗിക്കാൻ പറയുന്നു. ഇല്ലെങ്കിൽ മാത്രം 3000 ഉപയോഗിക്കുക.
+const port = process.env.PORT || 3000;
 
 // Render-ൽ സെറ്റ് ചെയ്ത Environment Variable-ൽ നിന്ന് കണക്ഷൻ സ്ട്രിംഗ് എടുക്കുന്നു
 const mongoUrl = process.env.MONGO_URI || 'mongodb+srv://shibilikds133_db_user:fWMByzwkdjsiH8Fj@cluster0.qainwdh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
@@ -32,26 +34,18 @@ connectToDb();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// ++ പ്രധാന മാറ്റങ്ങൾ ഇവിടെ ++
 // സ്റ്റാറ്റിക് ഫയലുകൾക്കായി ഒന്നിൽ കൂടുതൽ ഫോൾഡറുകൾ ഉപയോഗിക്കാൻ നിർദ്ദേശിക്കുന്നു
-
-// 1. പ്രധാന വെബ്സൈറ്റിന്റെ ഫയലുകൾക്കായി 'main' എന്ന ഫോൾഡർ ഉപയോഗിക്കുന്നു
-// server.js-ന് പുറത്തുള്ള ഫോൾഡറായതുകൊണ്ട് '..' എന്ന് ചേർക്കുന്നു
 app.use(express.static(path.join(__dirname, '..', 'main')));
-
-// 2. അഡ്മിഷൻ ഫോമിന്റെ ഫയലുകൾക്കായി 'public' എന്ന ഫോൾഡർ ഉപയോഗിക്കുന്നു
 app.use('/admission-assets', express.static(path.join(__dirname, 'public')));
 
 
 // പ്രധാന പേജ് (/) സന്ദർശിക്കുമ്പോൾ എന്തുചെയ്യണം
 app.get('/', (req, res) => {
-    // 'main' ഫോൾഡറിലുള്ള index.html അയക്കുന്നു
     res.sendFile(path.join(__dirname, '..', 'main', 'index.html'));
 });
 
 // അഡ്മിഷൻ പേജ് (/admission) സന്ദർശിക്കുമ്പോൾ എന്തുചെയ്യണം
 app.get('/admission', (req, res) => {
-    // 'public' ഫോൾഡറിലുള്ള form.html ഫയൽ അയക്കുന്നു
     res.sendFile(path.join(__dirname, 'public', 'form.html'));
 });
 
@@ -84,6 +78,5 @@ app.post('/submit-form', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is running successfully on http://localhost:${port}`);
+    console.log(`Server is running successfully on port ${port}`);
 });
-
