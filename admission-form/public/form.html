@@ -3,24 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admission Form -AL ANSAR ISLAMIC CENTRE</title>
+    <title>Admission Form - AL ANSAR ISLAMIC CENTRE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- ++ പുതിയ കലണ്ടറിന് വേണ്ടിയുള്ള ലൈബ്രറികൾ ++ -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <!-- PDF Generation Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
-        /* A more professional and modern stylesheet */
+        /* Redesigned Professional Green Theme */
         :root {
-            --primary-color: #1D4C4F; /* Dark Teal */
-            --secondary-color: #27797F; /* Lighter Teal */
-            --background-color: #f8f9fa; /* Soft off-white */
-            --text-color: #495057; /* Dark Gray */
+            --primary-green: #16a34a;
+            --dark-green: #15803d;
+            --light-green: #f0fdf4;
+            --background-gradient: linear-gradient(to top right, #f0fdf4, #eBFBF1);
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+            --border-color: #d1d5db;
             --container-bg: #ffffff;
-            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.08);
         }
 
         * {
@@ -31,18 +39,21 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.7;
+            background: var(--background-gradient);
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
             max-width: 800px;
-            margin: 40px auto;
+            margin: 50px auto;
             background-color: var(--container-bg);
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 40px 50px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px var(--shadow-color);
+            border: 1px solid #e5e7eb;
         }
 
         .header {
@@ -53,31 +64,31 @@
         }
 
         .header h1 {
-            color: var(--primary-color);
+            color: var(--dark-green);
             font-weight: 700;
-            font-size: 2.2em;
+            font-size: 2.4em;
+            letter-spacing: -1px;
         }
 
         .header h2 {
-            color: var(--secondary-color);
-            font-weight: 400;
-            font-size: 1.2em;
+            color: var(--primary-green);
+            font-weight: 500;
+            font-size: 1.3em;
         }
         
         .principal {
             text-align: center;
             margin-bottom: 40px;
-            font-weight: 300;
+            font-weight: 400;
             font-style: italic;
+            color: var(--text-light);
         }
 
         .details-section h3, .form-section h3, .contact-info h3 {
-            color: var(--primary-color);
+            color: var(--dark-green);
             font-weight: 600;
             margin-bottom: 20px;
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 8px;
-            display: inline-block;
+            font-size: 1.5em;
         }
         
         .details-section {
@@ -85,154 +96,260 @@
         }
 
         .details-section ul {
-            list-style: none; /* Remove default bullets */
+            list-style: none;
             padding-left: 0;
         }
 
         .details-section li {
             margin-bottom: 12px;
-            padding-left: 25px;
+            padding-left: 30px;
             position: relative;
+            font-size: 1.05em;
         }
         
         .details-section li::before {
-            content: '✓'; /* Custom checkmark */
-            color: var(--secondary-color);
-            font-weight: bold;
+            content: '\f058';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-green);
             position: absolute;
             left: 0;
-            top: 0;
+            top: 4px;
         }
 
-        /* Professional Form Styles */
         .form-section {
-            background-color: #fdfdfd;
+            background-color: var(--light-green);
             padding: 30px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            border: 1px solid #dcfce7;
             margin-bottom: 40px;
         }
 
         .form-section form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
         
         .form-section label {
             font-weight: 600;
-            color: var(--primary-color);
+            color: var(--dark-green);
+            font-size: 1em;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            transition: color 0.3s;
         }
 
         .form-section input,
         .form-section textarea {
-            padding: 12px 15px;
+            padding: 14px 15px 14px 45px;
             border: 1px solid var(--border-color);
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1em;
             width: 100%;
             font-family: 'Poppins', sans-serif;
             transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #fff;
         }
 
         .form-section input:focus,
         .form-section textarea:focus {
             outline: none;
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 5px rgba(39, 121, 127, 0.2);
-        }
-        
-        /* CSS For Radio Buttons */
-        .radio-group {
-            display: flex;
-            align-items: center;
-            gap: 25px; /* space between radio options */
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid var(--border-color);
-        }
-        .radio-group label {
-            font-weight: 400; /* Lighter font for radio options */
-            color: var(--text-color);
-            margin-bottom: 0;
-            cursor: pointer;
-        }
-        .radio-group input[type="radio"] {
-            width: auto; /* override default width */
-            margin-right: -15px; /* Adjust spacing */
-            accent-color: var(--primary-color);
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
         }
 
-        /* ++ NEW STYLES FOR BUTTONS ++ */
+        .form-section input:focus + i,
+        .form-section textarea:focus + i {
+            color: var(--primary-green);
+        }
+
+        .form-section textarea {
+            padding-left: 15px;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+        .radio-option label {
+            font-weight: 500;
+            color: var(--text-light);
+            padding-left: 30px;
+            position: relative;
+            cursor: pointer;
+        }
+        .radio-option label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        .radio-option label::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%) scale(0);
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-green);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        .radio-option input[type="radio"]:checked + label::before {
+            border-color: var(--primary-green);
+        }
+        .radio-option input[type="radio"]:checked + label::after {
+            transform: translateY(-50%) scale(1);
+        }
+
         .button-group {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            margin-top: 10px;
         }
 
         .submit-btn, .download-btn {
             padding: 15px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             color: white;
             font-size: 1.1em;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            width: 100%;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-
+        
         .submit-btn {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-green);
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.2);
         }
         .submit-btn:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-2px);
+            background-color: var(--dark-green);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(22, 163, 74, 0.3);
         }
         
         .download-btn {
-            background-color: var(--primary-color);
+            background-color: var(--dark-green);
         }
         .download-btn:hover {
-             background-color: #10383a;
-             transform: translateY(-2px);
+             background-color: #14532d;
+             transform: translateY(-3px);
         }
 
-
-        /* Contact & Footer */
         .contact-info, .footer {
             text-align: center;
+            margin-top: 40px;
         }
         
-        .contact-info {
-            margin-bottom: 40px;
-        }
-
-        .contact-info p {
-            margin-bottom: 10px;
-        }
-
         .contact-info a {
-            color: var(--secondary-color);
+            color: var(--primary-green);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
             transition: color 0.3s;
         }
-
         .contact-info a:hover {
-            color: var(--primary-color);
-            text-decoration: underline;
+            color: var(--dark-green);
         }
 
         .footer {
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
             font-size: 0.9em;
-            color: #aaa;
+            color: #9ca3af;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        /* ++ CSS for High-Quality PDF generation ++ */
+        #pdf-clone-container {
+            position: absolute;
+            left: -9999px; 
+            top: 0;
+            background: white;
+            padding: 40px;
+            width: 210mm; 
+            font-size: 10pt;
+        }
+        #pdf-clone-container .button-group { 
+            display: none !important;
+        }
+        #pdf-clone-container h1 { font-size: 22pt !important; }
+        #pdf-clone-container h2 { font-size: 14pt !important; }
+        #pdf-clone-container h3 { font-size: 12pt !important; font-weight: 600; }
+        #pdf-clone-container li, #pdf-clone-container p, #pdf-clone-container label, #pdf-clone-container input, #pdf-clone-container textarea {
+            font-size: 10pt !important;
         }
 
-        /* Media query for smaller screens */
+        /* ++ കലണ്ടറിന് വേണ്ടിയുള്ള പുതിയ സ്റ്റൈലുകൾ ++ */
+        .flatpickr-calendar {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+            width: 300px;
+        }
+        .flatpickr-months .flatpickr-month {
+            background: var(--dark-green);
+            color: white;
+        }
+        .flatpickr-months .flatpickr-prev-month svg,
+        .flatpickr-months .flatpickr-next-month svg {
+            fill: white;
+        }
+        .flatpickr-weekdays {
+            background: var(--primary-green);
+            color: white;
+        }
+        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+            background: var(--dark-green);
+            border-color: var(--dark-green);
+        }
+        .flatpickr-day.today {
+            border-color: var(--primary-green);
+        }
+        .flatpickr-day:hover {
+            background: var(--light-green);
+        }
+        .numInputWrapper span:hover {
+            background: var(--light-green);
+        }
+
+
+        /* Media Queries */
         @media (min-width: 600px) {
             .button-group {
                 flex-direction: row;
@@ -240,11 +357,11 @@
         }
         @media (max-width: 600px) {
             .container {
-                padding: 20px; /* Reducing padding on mobile */
-                margin: 20px auto;
+                padding: 20px;
+                margin: 20px;
             }
             .header h1 {
-                font-size: 1.8em; /* Adjusting font size for smaller screens */
+                font-size: 1.8em;
             }
         }
     </style>
@@ -281,34 +398,62 @@
         <div class="form-section">
             <h3>Apply Now</h3>
             <form action="/submit-form" method="POST" id="admission-form">
-                <label for="studentName">Student Name:</label>
-                <input type="text" id="studentName" name="studentName" placeholder="Enter full name" required>
+                
+                <div>
+                    <label for="studentName">Student Name:</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="studentName" name="studentName" placeholder="Enter full name" required>
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
 
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                <div>
+                    <label for="email">Email Address:</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
 
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" placeholder="e.g., +91..." required pattern="[0-9+]{10,13}">
+                <div>
+                    <label for="phone">Phone Number:</label>
+                    <div class="input-wrapper">
+                        <input type="tel" id="phone" name="phone" placeholder="e.g., +91..." required pattern="[0-9+]{10,13}">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                </div>
 
-                <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" name="dob" required>
+                <div>
+                    <label for="dob">Date of Birth:</label>
+                    <div class="input-wrapper">
+                        <!-- ++ ഇവിടെയാണ് മാറ്റം വരുത്തിയത് ++ -->
+                        <input type="text" id="dob" name="dob" placeholder="Select your date of birth..." required>
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                </div>
 
-                <label for="address">Address:</label>
-                <textarea id="address" name="address" rows="4" placeholder="Enter your full address" required></textarea>
+                <div>
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" rows="4" placeholder="Enter your full address" required></textarea>
+                </div>
 
-                <label>Applying for:</label>
-                <div class="radio-group">
-                    <input type="radio" id="junior" name="course" value="Junior (8th Standard)" required>
-                    <label for="junior">Junior (8th Standard)</label>
-                    
-                    <input type="radio" id="senior" name="course" value="Senior (SSLC passed)">
-                    <label for="senior">Senior (For SSLC passed)</label>
+                <div>
+                    <label>Applying for:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="junior" name="course" value="Junior (8th Standard)" required>
+                            <label for="junior">Junior (8th Standard)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="senior" name="course" value="Senior (SSLC passed)">
+                            <label for="senior">Senior (For SSLC passed)</label>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- ++ UPDATED BUTTONS SECTION ++ -->
                 <div class="button-group">
-                    <button type="submit" class="submit-btn">SUBMIT APPLICATION</button>
-                    <button type="button" id="download-pdf-btn" class="download-btn">DOWNLOAD AS PDF</button>
+                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> SUBMIT APPLICATION</button>
+                    <button type="button" id="download-pdf-btn" class="download-btn"><i class="fas fa-file-pdf"></i> DOWNLOAD AS PDF</button>
                 </div>
             </form>
         </div>
@@ -330,52 +475,79 @@
         </div>
     </div>
 
-    <!-- ++ NEW JAVASCRIPT FOR PDF GENERATION ++ -->
+    <!-- ++ UPDATED SCRIPT FOR HIGH-QUALITY A4 PDF GENERATION ++ -->
     <script>
-        document.getElementById('download-pdf-btn').addEventListener('click', function () {
-            // Get the element to print
-            const element = document.getElementById('form-container');
-            
-            // Use html2canvas to render the element as a canvas
-            html2canvas(element, {
-                scale: 2, // Improve resolution
-                useCORS: true 
-            }).then(canvas => {
-                // Get image data from the canvas
-                const imgData = canvas.toDataURL('image/png');
+        document.addEventListener('DOMContentLoaded', function() {
+            // PDF Generation Script
+            document.getElementById('download-pdf-btn').addEventListener('click', function () {
+                const originalElement = document.getElementById('form-container');
+                const clonedElement = originalElement.cloneNode(true);
                 
-                // Initialize jsPDF
-                const { jsPDF } = window.jspdf;
-                // 'p' for portrait, 'mm' for millimeters, 'a4' for page size
-                const pdf = new jsPDF('p', 'mm', 'a4');
+                const cloneContainer = document.createElement('div');
+                cloneContainer.id = 'pdf-clone-container';
+                cloneContainer.appendChild(clonedElement);
+                document.body.appendChild(cloneContainer);
                 
-                // Calculate dimensions
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-                const canvasWidth = canvas.width;
-                const canvasHeight = canvas.height;
-                const canvasAspectRatio = canvasWidth / canvasHeight;
-                const pdfAspectRatio = pdfWidth / pdfHeight;
+                html2canvas(cloneContainer, {
+                    scale: 3,
+                    useCORS: true,
+                    logging: false,
+                    width: cloneContainer.offsetWidth,
+                    height: cloneContainer.offsetHeight,
+                    windowWidth: cloneContainer.scrollWidth,
+                    windowHeight: cloneContainer.scrollHeight,
+                }).then(canvas => {
+                    document.body.removeChild(cloneContainer);
 
-                let finalWidth, finalHeight;
+                    const imgData = canvas.toDataURL('image/png', 1.0);
+                    const { jsPDF } = window.jspdf;
+                    
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
 
-                // Adjust image to fit the PDF page
-                if (canvasAspectRatio > pdfAspectRatio) {
-                    finalWidth = pdfWidth;
-                    finalHeight = pdfWidth / canvasAspectRatio;
-                } else {
-                    finalHeight = pdfHeight;
-                    finalWidth = pdfHeight * canvasAspectRatio;
-                }
-                
-                // Add the image to the PDF
-                pdf.addImage(imgData, 'PNG', 0, 0, finalWidth, finalHeight);
-                
-                // Save the PDF
-                pdf.save('Al-Ansar-Admission.pdf');
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    
+                    const canvasWidth = canvas.width;
+                    const canvasHeight = canvas.height;
+                    const ratio = canvasHeight / canvasWidth;
+
+                    const pdfImageWidth = pageWidth - 20;
+                    const pdfImageHeight = pdfImageWidth * ratio;
+                    
+                    let finalHeight = pdfImageHeight;
+                    if (finalHeight > (pageHeight - 20)) {
+                        finalHeight = pageHeight - 20;
+                    }
+
+                    pdf.addImage(imgData, 'PNG', 10, 10, pdfImageWidth, finalHeight);
+                    pdf.save('Al-Ansar-Admission-Form.pdf');
+
+                }).catch(err => {
+                    if (document.getElementById('pdf-clone-container')) {
+                        document.body.removeChild(document.getElementById('pdf-clone-container'));
+                    }
+                    console.error("PDF generation failed:", err);
+                    alert("Sorry, something went wrong while creating the PDF.");
+                });
+            });
+
+            // ++ കലണ്ടറിന് വേണ്ടിയുള്ള പുതിയ കോഡ് ++
+            flatpickr("#dob", {
+                altInput: true, // ഉപയോക്താവിന് മനസ്സിലാകുന്ന രൂപത്തിൽ തീയതി കാണിക്കുന്നു
+                altFormat: "F j, Y", // ഉദാഹരണം: October 9, 2025
+                dateFormat: "Y-m-d", // സെർവറിലേക്ക് അയക്കുന്ന തീയതിയുടെ രൂപം
+                maxDate: "today", // ഇന്നത്തെ ദിവസത്തിന് ശേഷമുള്ള തീയതികൾ തിരഞ്ഞെടുക്കാൻ സാധിക്കില്ല
+                disableMobile: "true" // മൊബൈലിലും ഈ കലണ്ടർ തന്നെ ഉപയോഗിക്കുന്നു
             });
         });
     </script>
 </body>
 </html>
+```
+
+
 
