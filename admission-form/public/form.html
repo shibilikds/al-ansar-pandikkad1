@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admission Form - AL ANSAR ISLAMIC CENTRE</title>
+    <title>Admission Form - Al Ansar Da'wa Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- ++ പുതിയ കലണ്ടറിന് വേണ്ടിയുള്ള ലൈബ്രറികൾ ++ -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <!-- PDF Generation Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
-        /* Redesigned Professional Green Theme */
+        /* New Professional Green Theme */
         :root {
-            --primary-green: #16a34a;
-            --dark-green: #15803d;
-            --light-green: #f0fdf4;
-            --background-gradient: linear-gradient(to top right, #f0fdf4, #eBFBF1);
+            --primary-green: #22c55e; /* Bright Green */
+            --secondary-green: #16a34a;
+            --dark-green: #14532d;
+            --light-bg: #f7fafc;
             --text-dark: #1f2937;
             --text-light: #4b5563;
-            --border-color: #d1d5db;
+            --border-color: #e5e7eb;
             --container-bg: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.08);
+            --form-bg: #f9fafb;
         }
 
         * {
@@ -39,77 +37,82 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--background-gradient);
+            background-color: var(--light-bg);
             color: var(--text-dark);
-            line-height: 1.6;
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: var(--container-bg);
-            padding: 40px 50px;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px var(--shadow-color);
-            border: 1px solid #e5e7eb;
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: var(--container-bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-bottom: 3px solid var(--primary-green);
         }
 
-        .header h1 {
-            color: var(--dark-green);
-            font-weight: 700;
-            font-size: 2.4em;
-            letter-spacing: -1px;
-        }
-
-        .header h2 {
-            color: var(--primary-green);
-            font-weight: 500;
-            font-size: 1.3em;
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
         }
         
-        .principal {
-            text-align: center;
-            margin-bottom: 40px;
-            font-weight: 400;
-            font-style: italic;
+        .navbar a {
             color: var(--text-light);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .navbar a:hover {
+            color: var(--primary-green);
         }
 
-        .details-section h3, .form-section h3, .contact-info h3 {
-            color: var(--dark-green);
+        .content-wrapper {
+            display: flex;
+            flex-grow: 1;
+            padding: 40px 50px;
+            gap: 40px;
+        }
+
+        .info-panel {
+            flex: 1;
+            max-width: 450px;
+        }
+
+        .form-panel {
+            flex: 1.5;
+            background-color: var(--container-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        }
+
+        .info-panel h2 {
+            font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-        
-        .details-section {
-             margin-bottom: 40px;
+            color: var(--dark-green);
         }
 
-        .details-section ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .details-section li {
-            margin-bottom: 12px;
-            padding-left: 30px;
+        .info-panel ul { list-style: none; padding-left: 0; margin-bottom: 30px; }
+        .info-panel li {
+            padding-left: 25px;
             position: relative;
-            font-size: 1.05em;
+            margin-bottom: 10px;
         }
-        
-        .details-section li::before {
+        .info-panel li::before {
             content: '\f058';
-            font-family: "Font Awesome 6 Free";
+            font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             color: var(--primary-green);
             position: absolute;
@@ -117,412 +120,218 @@
             top: 4px;
         }
 
-        .form-section {
-            background-color: var(--light-green);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid #dcfce7;
-            margin-bottom: 40px;
-        }
+        .contact-info p { margin-bottom: 5px; }
 
-        .form-section form {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+        .form-header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
         }
-        
-        .form-section label {
+        .form-header h2 {
+            font-size: 2.1rem;
             font-weight: 600;
             color: var(--dark-green);
-            font-size: 1em;
         }
-
-        .input-wrapper {
-            position: relative;
+        .form-header p {
+            font-size: 1.3rem;
+            color: var(--text-light);
         }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9ca3af;
-            transition: color 0.3s;
-        }
-
-        .form-section input,
-        .form-section textarea {
-            padding: 14px 15px 14px 45px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1em;
+        
+        .form-panel form label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .form-panel form input,
+        .form-panel form textarea,
+        .form-panel form select {
             width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
             font-family: 'Poppins', sans-serif;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            background-color: #fff;
+            margin-bottom: 20px;
+            transition: all 0.3s;
         }
-
-        .form-section input:focus,
-        .form-section textarea:focus {
+        .form-panel form input:focus,
+        .form-panel form textarea:focus,
+        .form-panel form select:focus {
             outline: none;
             border-color: var(--primary-green);
-            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
-        }
-
-        .form-section input:focus + i,
-        .form-section textarea:focus + i {
-            color: var(--primary-green);
-        }
-
-        .form-section textarea {
-            padding-left: 15px;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
         }
         
-        .radio-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .radio-option {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        .radio-option input[type="radio"] {
-            display: none;
-        }
-        .radio-option label {
-            font-weight: 500;
-            color: var(--text-light);
-            padding-left: 30px;
-            position: relative;
-            cursor: pointer;
-        }
-        .radio-option label::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--border-color);
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-        .radio-option label::after {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 50%;
-            transform: translateY(-50%) scale(0);
-            width: 10px;
-            height: 10px;
-            background-color: var(--primary-green);
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-        .radio-option input[type="radio"]:checked + label::before {
-            border-color: var(--primary-green);
-        }
-        .radio-option input[type="radio"]:checked + label::after {
-            transform: translateY(-50%) scale(1);
-        }
-
-        .button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
+        .button-group { display: flex; gap: 15px; margin-top: 20px; }
         .submit-btn, .download-btn {
-            padding: 15px;
+            padding: 12px 15px;
             border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 1.1em;
+            border-radius: 6px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .submit-btn {
-            background-color: var(--primary-green);
-            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.2);
-        }
-        .submit-btn:hover {
-            background-color: var(--dark-green);
-            transform: translateY(-3px);
-            box-shadow: 0 7px 20px rgba(22, 163, 74, 0.3);
-        }
-        
-        .download-btn {
-            background-color: var(--dark-green);
-        }
-        .download-btn:hover {
-             background-color: #14532d;
-             transform: translateY(-3px);
+            flex-grow: 1;
         }
 
-        .contact-info, .footer {
-            text-align: center;
-            margin-top: 40px;
-        }
+        .submit-btn { background-color: var(--primary-green); color: white; }
+        .submit-btn:hover { background-color: var(--secondary-green); }
+        .download-btn { background-color: var(--dark-green); color: white; }
+        .download-btn:hover { background-color: #14532d; }
         
-        .contact-info a {
-            color: var(--primary-green);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        .contact-info a:hover {
-            color: var(--dark-green);
-        }
-
-        .footer {
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.9em;
-            color: #9ca3af;
-        }
-        .footer p {
-            margin: 5px 0;
-        }
-        
-        /* ++ CSS for High-Quality PDF generation ++ */
-        #pdf-clone-container {
-            position: absolute;
-            left: -9999px; 
-            top: 0;
-            background: white;
-            padding: 40px;
-            width: 210mm; 
-            font-size: 10pt;
-        }
-        #pdf-clone-container .button-group { 
-            display: none !important;
-        }
-        #pdf-clone-container h1 { font-size: 22pt !important; }
-        #pdf-clone-container h2 { font-size: 14pt !important; }
-        #pdf-clone-container h3 { font-size: 12pt !important; font-weight: 600; }
-        #pdf-clone-container li, #pdf-clone-container p, #pdf-clone-container label, #pdf-clone-container input, #pdf-clone-container textarea {
-            font-size: 10pt !important;
-        }
-
-        /* ++ കലണ്ടറിന് വേണ്ടിയുള്ള പുതിയ സ്റ്റൈലുകൾ ++ */
         .flatpickr-calendar {
             background: #ffffff;
             border-radius: 8px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             border: 1px solid var(--border-color);
-            width: 300px;
         }
-        .flatpickr-months .flatpickr-month {
-            background: var(--dark-green);
-            color: white;
-        }
+        .flatpickr-months .flatpickr-month { background: var(--dark-green); color: white; }
         .flatpickr-months .flatpickr-prev-month svg,
-        .flatpickr-months .flatpickr-next-month svg {
-            fill: white;
+        .flatpickr-months .flatpickr-next-month svg { fill: white; }
+        .flatpickr-weekdays { background: var(--secondary-green); color: white; }
+        .flatpickr-day.selected { background: var(--dark-green); border-color: var(--dark-green); }
+        .flatpickr-day.today { border-color: var(--primary-green); }
+        .flatpickr-day:hover { background: #eBFBF1; }
+        
+        /* ++ PDF ജനറേഷന് വേണ്ടിയുള്ള സ്റ്റൈലുകൾ (അവസാനമായി മെച്ചപ്പെടുത്തിയത്) ++ */
+        #pdf-clone-container {
+            position: absolute; left: -9999px; top: 0; background: white;
+            padding: 40px; width: 210mm; 
+            font-size: 10pt;
         }
-        .flatpickr-weekdays {
-            background: var(--primary-green);
-            color: white;
+        #pdf-clone-container .form-header {
+            margin-bottom: 50px !important;
+            padding-bottom: 15px !important;
         }
-        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
-            background: var(--dark-green);
-            border-color: var(--dark-green);
+        #pdf-clone-container .form-header h2 {
+            font-size: 35pt !important; /* വലുപ്പം കൂട്ടി */
+            line-height: 1.2 !important;
         }
-        .flatpickr-day.today {
-            border-color: var(--primary-green);
+        #pdf-clone-container .form-header p {
+            font-size: 14pt !important; /* വലുപ്പം കൂട്ടി */
+            margin-top: 5px !important;
+            color: #333 !important;
         }
-        .flatpickr-day:hover {
-            background: var(--light-green);
+        #pdf-clone-container label {
+            font-size: 11pt !important;
+            margin-bottom: 6px !important;
         }
-        .numInputWrapper span:hover {
-            background: var(--light-green);
+       
+        /* Responsive Design */
+        @media (max-width: 992px) { .content-wrapper { flex-direction: column; } .info-panel { max-width: 100%; } }
+        @media (max-width: 768px) {
+            .header { padding: 15px 20px; flex-direction: column; gap: 10px; }
+            .navbar { margin-top: 10px; } .navbar a { margin: 0 10px; }
+            .content-wrapper { padding: 20px; }
         }
-
-
-        /* Media Queries */
-        @media (min-width: 600px) {
-            .button-group {
-                flex-direction: row;
-            }
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-                margin: 20px;
-            }
-            .header h1 {
-                font-size: 1.8em;
-            }
-        }
+        
     </style>
 </head>
 <body>
+    <div class="main-container">
+        <header class="header">
+            <div class="logo">
+                <h1>Al Ansar Da'wa Academy</h1>
+            </div>
+            <nav class="navbar">
+                <a href="/">Home</a>
+                <a href="/#about">About</a>
+                <a href="/admission">Admission</a>
+                <a href="/#contact">Contact</a>
+            </nav>
+        </header>
 
-    <div class="container" id="form-container">
-        <div class="header">
-            <h1>AL ANSAR ISLAMIC CENTRE</h1>
-            <h2>ADMISSIONS STARTED</h2>
-        </div>
+        <main class="content-wrapper">
+            <div class="info-panel">
+                <h2>Features</h2>
+                <ul>
+                    <li>Excellent and experienced academic body.</li>
+                    <li>Holistic training and mentorship from Ustads.</li>
+                    <li>Nurturing environment for creative skills.</li>
+                    <li>Opportunities for higher studies in top universities.</li>
+                </ul>
+                <p><strong>Principal:</strong> Muhammed Basheer Kamil Saqafi Karakkunnu</p>
+                <br>
+                <h2>For more information, contact:</h2>
+                <div class="contact-info">
+                    <p><strong>Email:</strong> alanswarpandikkad@gmail.com</p>
+                    <p><strong>Phone:</strong> +91 95263 15849, +91 90480 19566, +91 80785 65815</p>
+                </div>
+            </div>
+            
+            <div class="form-panel" id="form-container">
+                <div class="form-header">
+                    <h2>Al Ansar Da'wa Academy</h2>
+                    <p>Admission Application Form</p>
+                </div>
 
-        <p class="principal">
-            <strong>Principal:</strong> Muhammed Basheer Kamil Saqafi Karakkunnu
-        </p>
+                <form action="/submit-form" method="POST" id="admission-form">
+                    <label for="studentName">Name</label>
+                    <input type="text" id="studentName" name="studentName" required>
+                    
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
 
-        <div class="details-section">
-            <h3>Courses Offered</h3>
-            <ul>
-                <li><strong>Junior:</strong> For 8th Standard Students.</li>
-                <li><strong>Senior:</strong> For those expecting high marks in SSLC.</li>
-            </ul>
+                    <label for="dob">Date of Birth</label>
+                    <input type="text" id="dob" name="dob" placeholder="Select date..." required>
+                    
+                    <label for="phone">WhatsApp Number</label>
+                    <input type="tel" id="phone" name="phone" required pattern="[0-9+]{10,13}">
 
-            <h3>Features</h3>
-            <ul>
-                <li>Syllabus of Jamiathul Hind Al Islamiyya.</li>
-                <li>Excellent Academic Body.</li>
-                <li>Complete training from experienced teachers.</li>
-                <li>Nurturing creative talents.</li>
-                <li>Opportunity to pursue Degree and PG from top universities.</li>
-            </ul>
-        </div>
-
-        <div class="form-section">
-            <h3>Apply Now</h3>
-            <form action="/submit-form" method="POST" id="admission-form">
-                
-                <div>
-                    <label for="studentName">Student Name:</label>
-                    <div class="input-wrapper">
-                        <input type="text" id="studentName" name="studentName" placeholder="Enter full name" required>
-                        <i class="fas fa-user"></i>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="course">Class you wish to join</label>
+                    <select id="course" name="course" required>
+                        <option value="" disabled selected>Select a class</option>
+                        <option value="Senior (For SSLC High Achievers)">Senior (For SSLC High Achievers)</option>
+                        <option value="Junior (For 8th Standard)">Junior (For 8th Standard)</option>
+                    </select>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="submit-btn">Submit Application</button>
+                        <button type="button" id="download-pdf-btn" class="download-btn">Download as PDF</button>
                     </div>
-                </div>
-
-                <div>
-                    <label for="email">Email Address:</label>
-                    <div class="input-wrapper">
-                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                </div>
-
-                <div>
-                    <label for="phone">Phone Number:</label>
-                    <div class="input-wrapper">
-                        <input type="tel" id="phone" name="phone" placeholder="e.g., +91..." required pattern="[0-9+]{10,13}">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                </div>
-
-                <div>
-                    <label for="dob">Date of Birth:</label>
-                    <div class="input-wrapper">
-                        <!-- ++ ഇവിടെയാണ് മാറ്റം വരുത്തിയത് ++ -->
-                        <input type="text" id="dob" name="dob" placeholder="Select your date of birth..." required>
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                </div>
-
-                <div>
-                    <label for="address">Address:</label>
-                    <textarea id="address" name="address" rows="4" placeholder="Enter your full address" required></textarea>
-                </div>
-
-                <div>
-                    <label>Applying for:</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" id="junior" name="course" value="Junior (8th Standard)" required>
-                            <label for="junior">Junior (8th Standard)</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="senior" name="course" value="Senior (SSLC passed)">
-                            <label for="senior">Senior (For SSLC passed)</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="button-group">
-                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> SUBMIT APPLICATION</button>
-                    <button type="button" id="download-pdf-btn" class="download-btn"><i class="fas fa-file-pdf"></i> DOWNLOAD AS PDF</button>
-                </div>
-            </form>
-        </div>
-
-        <div class="contact-info">
-            <h3>For More Information</h3>
-            <p><strong>Email:</strong> <a href="mailto:shibilikds938@gmail.com">shibilikds938@gmail.com</a></p>
-            <p><strong>Phone:</strong></p>
-            <p>
-                <a href="tel:+919526315849">+91 95263 15849</a> | 
-                <a href="tel:+919048019566">+91 90480 19566</a> | 
-                <a href="tel:+918078565815">+91 80785 65815</a>
-            </p>
-        </div>
-
-        <div class="footer">
-            <p><strong>AL ANSAR ISLAMIC CENTRE PANDIKKAD</strong></p>
-            <p>Ansar Nagar, Pandikkad, Malappuram, Kerala, India.</p>
-        </div>
+                </form>
+            </div>
+        </main>
     </div>
 
-    <!-- ++ UPDATED SCRIPT FOR HIGH-QUALITY A4 PDF GENERATION ++ -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // PDF Generation Script
+            flatpickr("#dob", {
+                altInput: true, altFormat: "F j, Y", dateFormat: "Y-m-d", maxDate: "today",
+            });
+
             document.getElementById('download-pdf-btn').addEventListener('click', function () {
                 const originalElement = document.getElementById('form-container');
+                // ++ ബട്ടണുകൾ ഒഴിവാക്കാനുള്ള പുതിയ രീതി ++
+                const buttons = originalElement.querySelector('.button-group');
+                buttons.style.display = 'none';
+
                 const clonedElement = originalElement.cloneNode(true);
-                
+                buttons.style.display = ''; // ബട്ടണുകൾ തിരികെ കാണിക്കുന്നു
+
                 const cloneContainer = document.createElement('div');
                 cloneContainer.id = 'pdf-clone-container';
                 cloneContainer.appendChild(clonedElement);
                 document.body.appendChild(cloneContainer);
                 
                 html2canvas(cloneContainer, {
-                    scale: 3,
-                    useCORS: true,
-                    logging: false,
-                    width: cloneContainer.offsetWidth,
-                    height: cloneContainer.offsetHeight,
-                    windowWidth: cloneContainer.scrollWidth,
-                    windowHeight: cloneContainer.scrollHeight,
+                    scale: 3, useCORS: true, logging: false,
+                    width: cloneContainer.offsetWidth, height: cloneContainer.offsetHeight,
+                    windowWidth: cloneContainer.scrollWidth, windowHeight: cloneContainer.scrollHeight,
                 }).then(canvas => {
                     document.body.removeChild(cloneContainer);
 
                     const imgData = canvas.toDataURL('image/png', 1.0);
                     const { jsPDF } = window.jspdf;
                     
-                    const pdf = new jsPDF({
-                        orientation: 'portrait',
-                        unit: 'mm',
-                        format: 'a4'
-                    });
-
+                    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
                     const pageWidth = pdf.internal.pageSize.getWidth();
                     const pageHeight = pdf.internal.pageSize.getHeight();
-                    
-                    const canvasWidth = canvas.width;
-                    const canvasHeight = canvas.height;
-                    const ratio = canvasHeight / canvasWidth;
-
-                    const pdfImageWidth = pageWidth - 20;
+                    const ratio = canvas.height / canvas.width;
+                    const pdfImageWidth = pageWidth - 20; 
                     const pdfImageHeight = pdfImageWidth * ratio;
-                    
                     let finalHeight = pdfImageHeight;
-                    if (finalHeight > (pageHeight - 20)) {
-                        finalHeight = pageHeight - 20;
-                    }
-
+                    if (finalHeight > (pageHeight - 20)) { finalHeight = pageHeight - 20; }
                     pdf.addImage(imgData, 'PNG', 10, 10, pdfImageWidth, finalHeight);
                     pdf.save('Al-Ansar-Admission-Form.pdf');
 
@@ -530,24 +339,13 @@
                     if (document.getElementById('pdf-clone-container')) {
                         document.body.removeChild(document.getElementById('pdf-clone-container'));
                     }
+                    buttons.style.display = ''; // പിശക് വന്നാലും ബട്ടണുകൾ തിരികെ കാണിക്കുന്നു
                     console.error("PDF generation failed:", err);
                     alert("Sorry, something went wrong while creating the PDF.");
                 });
-            });
-
-            // ++ കലണ്ടറിന് വേണ്ടിയുള്ള പുതിയ കോഡ് ++
-            flatpickr("#dob", {
-                altInput: true, // ഉപയോക്താവിന് മനസ്സിലാകുന്ന രൂപത്തിൽ തീയതി കാണിക്കുന്നു
-                altFormat: "F j, Y", // ഉദാഹരണം: October 9, 2025
-                dateFormat: "Y-m-d", // സെർവറിലേക്ക് അയക്കുന്ന തീയതിയുടെ രൂപം
-                maxDate: "today", // ഇന്നത്തെ ദിവസത്തിന് ശേഷമുള്ള തീയതികൾ തിരഞ്ഞെടുക്കാൻ സാധിക്കില്ല
-                disableMobile: "true" // മൊബൈലിലും ഈ കലണ്ടർ തന്നെ ഉപയോഗിക്കുന്നു
             });
         });
     </script>
 </body>
 </html>
-```
-
-
 
