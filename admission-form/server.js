@@ -16,15 +16,17 @@ const client = new MongoClient(mongoUrl);
 // ഡാറ്റാബേസുമായി കണക്ട് ചെയ്ത ശേഷം മാത്രം സെർവർ പ്രവർത്തിപ്പിക്കുന്നു
 async function startServer() {
     try {
+        // 1. ഡാറ്റാബേസുമായി കണക്ട് ചെയ്യുന്നു
         await client.connect();
         console.log('Successfully connected to MongoDB Atlas!');
         const db = client.db(dbName);
 
+        // --- മിഡിൽവെയറുകൾ ഇവിടെ ചേർക്കുന്നു ---
         app.use(bodyParser.urlencoded({ extended: true }));
 
-        // ++ സ്റ്റാറ്റിക് ഫയലുകൾക്കായി എല്ലാ ഫോൾഡറുകളും ചേർക്കുന്നു ++
+        // സ്റ്റാറ്റിക് ഫയലുകൾക്കായി എല്ലാ ഫോൾഡറുകളും ചേർക്കുന്നു
         app.use(express.static(path.join(__dirname, '..', 'main')));
-        app.use(express.static(path.join(__dirname, 'public'))); // form.html-ന് വേണ്ടി
+        app.use(express.static(path.join(__dirname, 'public')));
         app.use(express.static(path.join(__dirname, '..', 'alif')));
         app.use(express.static(path.join(__dirname, '..', 'asas')));
         app.use(express.static(path.join(__dirname, '..', 'admission')));
@@ -32,29 +34,27 @@ async function startServer() {
 
         // --- റൂട്ടുകൾ (Routes) ---
 
-        // പ്രധാന പേജ് (/)
         app.get('/', (req, res) => {
             res.sendFile(path.join(__dirname, '..', 'main', 'index.html'));
         });
 
-        // അഡ്മിഷൻ ഫോം പേജ് (/admission)
         app.get('/admission', (req, res) => {
             res.sendFile(path.join(__dirname, 'public', 'form.html'));
         });
 
-        // ++ പുതിയ പേജുകൾക്ക് വേണ്ടിയുള്ള റൂട്ടുകൾ ++
+        // ++ കലണ്ടർ പേജിന് വേണ്ടിയുള്ള പുതിയ റൂട്ട് ++
+        app.get('/calendar', (req, res) => {
+            res.sendFile(path.join(__dirname, '..', 'main', 'calendar.html'));
+        });
 
-        // Alif പേജ് (/alif)
         app.get('/alif', (req, res) => {
             res.sendFile(path.join(__dirname, '..', 'alif', 'Alif.html'));
         });
 
-        // ASAS പേജ് (/asas)
         app.get('/asas', (req, res) => {
             res.sendFile(path.join(__dirname, '..', 'asas', 'ASAS.html'));
         });
 
-        // Admissions News പേജ് (/admission-news)
         app.get('/admission-news', (req, res) => {
             res.sendFile(path.join(__dirname, '..', 'admission', 'Admissions.html'));
         });
@@ -88,15 +88,17 @@ async function startServer() {
             }
         });
 
+        // 2. ഡാറ്റാബേസ് കണക്ഷൻ വിജയകരമാണെങ്കിൽ മാത്രം സെർവർ ഓൺ ആക്കുന്നു
         app.listen(port, () => {
             console.log(`Server is running successfully on port ${port}`);
         });
 
     } catch (err) {
         console.error('Failed to connect to MongoDB and start server', err);
-        process.exit(1);
+        process.exit(1); // പിശക് വന്നാൽ സെർവർ നിർത്തുന്നു
     }
 }
 
+// സെർവർ പ്രവർത്തിപ്പിക്കാനായി ഫംഗ്ഷൻ വിളിക്കുന്നു
 startServer();
 
