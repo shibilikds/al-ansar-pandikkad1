@@ -11,11 +11,17 @@ const port = process.env.PORT || 3000;
 // Render-ൽ സെറ്റ് ചെയ്ത Environment Variable-ൽ നിന്ന് കണക്ഷൻ സ്ട്രിംഗ് എടുക്കുന്നു
 const mongoUrl = process.env.MONGO_URI || 'mongodb+srv://shibilikds133_db_user:fWMByzwkdjsiH8Fj@cluster0.qainwdh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 const dbName = 'alAnsarAdmissions';
-const client = new MongoClient(mongoUrl);
+// ++ കണക്ഷൻ ടൈംഔട്ട് വർദ്ധിപ്പിക്കുന്നു ++
+const client = new MongoClient(mongoUrl, {
+    serverSelectionTimeoutMS: 30000, // 30 സെക്കൻഡ് വരെ കാത്തിരിക്കാൻ പറയുന്നു
+    connectTimeoutMS: 30000
+});
 
 // ഡാറ്റാബേസുമായി കണക്ട് ചെയ്ത ശേഷം മാത്രം സെർവർ പ്രവർത്തിപ്പിക്കുന്നു
 async function startServer() {
     try {
+        console.log('Server process started. Attempting to connect to MongoDB...');
+        
         // 1. ഡാറ്റാബേസുമായി കണക്ട് ചെയ്യുന്നു
         await client.connect();
         console.log('Successfully connected to MongoDB Atlas!');
@@ -23,17 +29,14 @@ async function startServer() {
 
         // --- മിഡിൽവെയറുകൾ ഇവിടെ ചേർക്കുന്നു ---
         app.use(bodyParser.urlencoded({ extended: true }));
-
-        // സ്റ്റാറ്റിക് ഫയലുകൾക്കായി എല്ലാ ഫോൾഡറുകളും ചേർക്കുന്നു
+        
         app.use(express.static(path.join(__dirname, '..', 'main')));
         app.use(express.static(path.join(__dirname, 'public')));
         app.use(express.static(path.join(__dirname, '..', 'alif')));
         app.use(express.static(path.join(__dirname, '..', 'asas')));
         app.use(express.static(path.join(__dirname, '..', 'admission')));
 
-
         // --- റൂട്ടുകൾ (Routes) ---
-
         app.get('/', (req, res) => {
             res.sendFile(path.join(__dirname, '..', 'main', 'index.html'));
         });
@@ -42,7 +45,6 @@ async function startServer() {
             res.sendFile(path.join(__dirname, 'public', 'form.html'));
         });
 
-        // ++ കലണ്ടർ പേജിന് വേണ്ടിയുള്ള പുതിയ റൂട്ട് ++
         app.get('/calendar', (req, res) => {
             res.sendFile(path.join(__dirname, '..', 'main', 'calendar.html'));
         });
@@ -59,8 +61,6 @@ async function startServer() {
             res.sendFile(path.join(__dirname, '..', 'admission', 'Admissions.html'));
         });
 
-
-        // ഫോം സബ്മിറ്റ് ചെയ്യുമ്പോൾ
         app.post('/submit-form', async (req, res) => {
             const applicationData = {
                 studentName: req.body.studentName,
@@ -90,15 +90,14 @@ async function startServer() {
 
         // 2. ഡാറ്റാബേസ് കണക്ഷൻ വിജയകരമാണെങ്കിൽ മാത്രം സെർവർ ഓൺ ആക്കുന്നു
         app.listen(port, () => {
-            console.log(`Server is running successfully on port ${port}`);
+            console.log(`Server is now live and listening on port ${port}`);
         });
 
     } catch (err) {
-        console.error('Failed to connect to MongoDB and start server', err);
-        process.exit(1); // പിശക് വന്നാൽ സെർവർ നിർത്തുന്നു
+        console.error('CRITICAL ERROR: Failed to connect to MongoDB or start server.', err);
+        process.exit(1);
     }
 }
 
-// സെർവർ പ്രവർത്തിപ്പിക്കാനായി ഫംഗ്ഷൻ വിളിക്കുന്നു
 startServer();
 
