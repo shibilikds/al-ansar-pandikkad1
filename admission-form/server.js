@@ -30,6 +30,7 @@ async function startServer() {
         // --- മിഡിൽവെയറുകൾ ഇവിടെ ചേർക്കുന്നു ---
         app.use(bodyParser.urlencoded({ extended: true }));
         
+        // ++ സ്റ്റാറ്റിക് ഫയലുകൾക്കായി എല്ലാ ഫോൾഡറുകളും ചേർക്കുന്നു ++
         app.use(express.static(path.join(__dirname, '..', 'main')));
         app.use(express.static(path.join(__dirname, 'public')));
         app.use(express.static(path.join(__dirname, '..', 'alif')));
