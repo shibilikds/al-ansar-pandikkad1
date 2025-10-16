@@ -71,90 +71,92 @@
         /* ============================================
    NAVIGATION BAR (DESKTOP)
    ============================================ */
-       /* ============================================
+        /* ============================================
    NAVIGATION BAR (Updated for smooth hide/show)
    ============================================ */
-nav {
-  position: fixed; /* changed from sticky */
-  top: 0;
-  width: 100%;
-  background: var(--white);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  padding: 0 20px;
-  transition: transform 0.3s ease-in-out; /* smooth slide on scroll */
-}
+        nav {
+            position: fixed;
+            /* changed from sticky */
+            top: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 0 20px;
+            transition: transform 0.3s ease-in-out;
+            /* smooth slide on scroll */
+        }
 
-/* Nav container layout */
-.nav-container {
-  max-width: var(--container-max-width);
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
-}
+        /* Nav container layout */
+        .nav-container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
 
-/* Logo styling */
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--primary-green);
-  letter-spacing: 1px;
-  transition: var(--transition-smooth);
-}
+        /* Logo styling */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            letter-spacing: 1px;
+            transition: var(--transition-smooth);
+        }
 
-.logo:hover {
-  color: var(--secondary-green);
-}
+        .logo:hover {
+            color: var(--secondary-green);
+        }
 
-/* Navigation links */
-.nav-links {
-  display: flex;
-  gap: 40px;
-}
+        /* Navigation links */
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
 
-.nav-links a {
-  color: var(--text-dark);
-  font-weight: 500;
-  transition: var(--transition-smooth);
-  position: relative;
-}
+        .nav-links a {
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
 
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--secondary-green);
-  transition: width 0.3s ease;
-}
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-green);
+            transition: width 0.3s ease;
+        }
 
-.nav-links a:hover {
-  color: var(--secondary-green);
-}
+        .nav-links a:hover {
+            color: var(--secondary-green);
+        }
 
-.nav-links a:hover::after {
-  width: 100%;
-}
+        .nav-links a:hover::after {
+            width: 100%;
+        }
 
-/* Hamburger Menu (Hidden on Desktop) */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  z-index: 1001;
-}
+        /* Hamburger Menu (Hidden on Desktop) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
 
-.hamburger div {
-  width: 25px;
-  height: 3px;
-  background: var(--primary-green);
-  margin: 4px 0;
-  transition: var(--transition-smooth);
-}
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            margin: 4px 0;
+            transition: var(--transition-smooth);
+        }
 
         /* ============================================
    HEADER SECTION
@@ -229,7 +231,7 @@ nav {
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            cursor: pointer;
+            /* cursor: pointer; -- Removed as slider buttons are used */
             transition: var(--transition-smooth);
         }
 
@@ -270,6 +272,70 @@ nav {
         /* Reverse Layout */
         .content-section.reverse {
             flex-direction: row-reverse;
+        }
+
+        /* ============================================
+   IMAGE SLIDER STYLES
+   ============================================ */
+        .slider-container {
+            position: relative;
+            cursor: default; /* Change cursor for slider */
+        }
+        
+        .slider-container:hover {
+             transform: translateY(0); /* Disable hover effect for slider */
+        }
+        
+        .slider-container:hover img {
+            transform: scale(1); /* Disable hover effect for slider */
+        }
+
+        .slider-slide {
+            display: none;
+            /* Hide all slides by default */
+        }
+
+        .slider-slide.active {
+            display: block;
+            /* Show only the active slide */
+            animation: fadeIn 0.8s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0.4;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+            border-radius: 5px;
+        }
+
+        .slider-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
         }
 
         /* ============================================
@@ -645,83 +711,92 @@ nav {
          MAIN CONTENT
          ============================================ -->
     <main>
-        <!-- Section 1: Orphan Care -->
+        <!-- Section 1: Grand Opening -->
         <section id="orphan-care" class="content-section">
             <div class="image-container">
-                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&h=600&fit=crop"
-                    alt="Children at orphanage receiving care and support">
+                <img src="https://images.unsplash.com/photo-1594122230689-45899d9e6f69?w=800&h=600&fit=crop"
+                    alt="Festival inauguration ceremony with a large audience">
             </div>
             <div class="text-content">
-                <h2>Nurturing Young Hearts</h2>
-                <p>At AL ANSAR PANDIKKAD, we believe every child deserves love, care, and a promising future. Our orphan
-                    care program provides comprehensive support to children who have lost their families, offering them
-                    a safe haven filled with warmth and compassion.</p>
-                <p>We provide nutritious meals, quality education, healthcare services, and emotional support to help
-                    these young souls flourish. Our dedicated team works tirelessly to ensure that every child under our
-                    care grows up with dignity, hope, and the skills needed to build a successful future.</p>
+                <h2>Grand Opening</h2>
+                <p>The vibrant spectacle of art and culture has begun. The Al Ansar Arts & Cultural Fest has kicked off
+                    with great enthusiasm. Organized with the aim of encouraging students' creative talents, this grand
+                    festival is a confluence of knowledge and expression.</p>
+                <p>The inauguration ceremony, attended by renowned personalities, marked the beginning of the exciting
+                    competitions to follow. The welcome programs presented by the students in front of the audience
+                    added color to the celebration.</p>
             </div>
         </section>
 
-        <!-- Section 2: Educational Support -->
+        <!-- Section 2: Cultural Competitions -->
         <section id="education" class="content-section reverse">
             <div class="image-container">
-                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop"
-                    alt="Students studying and learning in classroom">
+                <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&h=600&fit=crop"
+                    alt="Students participating in a speech competition on stage">
             </div>
             <div class="text-content">
-                <h2>Empowering Through Education</h2>
-                <p>Education is the cornerstone of progress and empowerment. Our scholarship programs and educational
-                    aid initiatives have helped hundreds of deserving students from economically disadvantaged
-                    backgrounds pursue their academic dreams.</p>
-                <p>We provide financial assistance for tuition fees, books, uniforms, and other educational necessities.
-                    Beyond monetary support, we also offer mentorship programs, career guidance, and skill development
-                    workshops to ensure our students are well-prepared for the challenges of tomorrow.</p>
+                <h2>Stars of the Stage</h2>
+                <p>Our creative stage is enriched with numerous competitive events like speeches, Qira'at,
+                    Mappilappattu, and Daffumuttu. Opportunities are provided here for every student to showcase their
+                    skills and prove their talents.</p>
+                <p>With knowledge and confidence, each participant creates wonders on the stage. Experienced judges lead
+                    the competitions, making it a valuable experience for the students.</p>
             </div>
         </section>
 
-        <!-- Section 3: Community Welfare -->
+        <!-- Section 3: Arts & Exhibitions (with Image Slider) -->
         <section id="community" class="content-section">
-            <div class="image-container">
-                <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&h=600&fit=crop"
-                    alt="Community welfare and support activities">
+            <div class="image-container slider-container">
+                <!-- Slides -->
+                <div class="slider-slide">
+                    <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=600&fit=crop"
+                        alt="Colorful abstract painting">
+                </div>
+                <div class="slider-slide">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&h=600&fit=crop"
+                        alt="Islamic calligraphy art">
+                </div>
+                <!-- Navigation Buttons -->
+                <button class="slider-btn prev-btn">&lt;</button>
+                <button class="slider-btn next-btn">&gt;</button>
             </div>
             <div class="text-content">
-                <h2>Supporting the Vulnerable</h2>
-                <p>Our community welfare programs extend a helping hand to those who need it most. We work with
-                    differently-abled individuals, providing them with rehabilitation services, assistive devices, and
-                    vocational training to help them lead independent and dignified lives.</p>
-                <p>We also support destitute families through food distribution drives, medical assistance programs, and
-                    livelihood initiatives. Our goal is to create a more inclusive society where everyone has access to
-                    basic necessities and opportunities for growth, regardless of their circumstances.</p>
+                <h2>The Colorful World of Art</h2>
+                <p>The art gallery, adorned with beautiful paintings and calligraphy crafted by the students, is one of
+                    the main attractions of the festival. Each creation is a testament to their imagination and skill.
+                </p>
+                <p>This venue, showcasing both traditional and modern artworks, offers visitors a new visual experience.
+                    It will be an inspiration for anyone who loves art.</p>
             </div>
         </section>
 
-        <!-- Section 4: Healthcare Initiatives -->
+        <!-- Section 4: Food Festival -->
         <section id="healthcare" class="content-section reverse">
             <div class="image-container">
-                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop"
-                    alt="Healthcare services and medical camps">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=600&fit=crop"
+                    alt="Various traditional Kerala food items at a food festival">
             </div>
             <div class="text-content">
-                <h2>Health for All</h2>
-                <p>Access to quality healthcare is a fundamental right. Our medical camps and health initiatives bring
-                    essential healthcare services to underserved communities, conducting free health check-ups,
-                    distributing medicines, and providing health education.</p>
-                <p>We organize regular eye camps, dental check-ups, and specialized medical consultations. Our
-                    partnership with healthcare professionals ensures that even the most vulnerable members of society
-                    receive the medical attention they deserve, free of cost.</p>
+                <h2>Festival of Flavors</h2>
+                <p>To complete the celebrations, a food festival has been organized with delicious dishes. From local
+                    delicacies to new recipes, everything is available here.</p>
+                <p>The stalls, ensuring clean and tasty food, provide a refreshing break amidst the excitement of the
+                    competitions. It is also a place for family and friends to enjoy together.</p>
             </div>
         </section>
 
         <!-- Detailed Activities List -->
         <section id="activities" class="activities-list">
-            <h2>Our Comprehensive Range of Activities</h2>
+            <h2>Main Competition Events</h2>
             <ul>
-                <li>Operating and maintaining orphanages with modern facilities</li>
-                <li>Providing scholarships and educational materials to underprivileged students</li>
-                <li>Conducting free medical camps in rural and urban areas</li>
+                <li>Quran Recitation (Qira'at)</li>
+                <li>Speech Competition (in various languages)</li>
+                <li>Mappilappattu, Daffumuttu, and Burda Recitation</li>
+            </ul>
         </section>
     </main>
+
+
 
     <!-- ============================================
          FOOTER
@@ -823,9 +898,9 @@ nav {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const closeLightbox = document.getElementById('closeLightbox');
-            const clickableImages = document.querySelectorAll('.image-container img');
+            const clickableImages = document.querySelectorAll('.image-container:not(.slider-container) img');
 
-            // Open lightbox when an image is clicked
+            // Open lightbox when a static image is clicked
             clickableImages.forEach(img => {
                 img.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -857,8 +932,53 @@ nav {
                     document.body.style.overflow = 'auto';
                 }
             });
+
+            // ============================================
+            // IMAGE SLIDER FUNCTIONALITY (Section 3)
+            // ============================================
+            const slides = document.querySelectorAll('.slider-slide');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                // Handle case where slider elements might not exist
+                if (slides.length === 0) return;
+                
+                // Hide all slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                });
+
+                // Show the correct slide
+                slides[index].classList.add('active');
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            // Event Listeners for slider buttons
+            if (nextBtn && prevBtn) {
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+            }
+
+            // Auto-play feature
+            setInterval(nextSlide, 5000); // Change slide every 5 seconds
+
+            // Initialize slider
+            showSlide(currentSlide);
+
         });
     </script>
 </body>
 
 </html>
+
